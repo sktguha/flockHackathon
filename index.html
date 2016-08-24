@@ -46,6 +46,11 @@
         ownerName = fe.userName;
         ownerJid = fe.userId;
         renderRooms();
+        selectList.onchange = function(e){
+            $('.fc-icon-right-single-arrow').click();
+            setTimeout(function(){ $('.fc-icon-left-single-arrow').click();}, 1);
+            console.log(e);
+        };
          var initOptions = {
 			header: {
 				left: 'prev,next today',
