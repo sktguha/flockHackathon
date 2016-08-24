@@ -8,10 +8,18 @@
 <script src='./lib/jquery.js'></script>
 <script src='./lib/fullcalendar.js'></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script>
+<script src="//apps-static.flock.co/js-sdk/0.1.0/flock.js"></script>
+    <script>
     var addUrl = "http://172.16.154.112:8080/bookConference";
     var viewUrl = "http://172.16.154.112:8080/getBookings";
     var selectList;
+    function parseParam(){
+        var pm = {}
+        _.each(location.href.split("?")[1].split("&"), function(s){
+            pm[s.split("=")[0]] = s.split("=")[1]
+        });
+        return pm;
+    }
     function renderRooms(){
         var array = ['hogwarts', 'sauran', 'gandalf', 'hufflepuff', 'gyfindoor'];
         selectList = document.createElement("select");
@@ -30,9 +38,13 @@
 
 	$(document).ready(function() {
         var ownerName = "Saikat.g";
+        //unused right now
         var groupJid = "groupJid";
         var ownerJid = "daksdjnadkasdbhasjbh";
-
+        var pm = parseParam();
+        var fe = JSON.parse(decodeURIComponent(pm.flockEvent));
+        ownerName = fe.userName;
+        ownerJid = fe.userId;
         renderRooms();
          var initOptions = {
 			header: {
